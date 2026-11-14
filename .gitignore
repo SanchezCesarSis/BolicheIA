@@ -1,0 +1,14 @@
+# Builds
+cmake-build-*/
+build/
+out/
+
+# Binarios
+*.dll
+*.exe
+*.so
+*.o
+
+# IDE
+.idea/
+.vscode/
