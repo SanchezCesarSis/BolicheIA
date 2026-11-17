@@ -25,12 +25,28 @@ endif()
 
 add_executable(Boliche_inteligente
         main.cpp
-        deteccion_IA.cpp
-        deteccion_IA.h
         marcador.cpp
-        marcador.h)
+        marcador.h
+        configuracion.h
+        aplicacion/aplicacion.cpp
+        aplicacion/aplicacion.h
+        interfaz/interfaz.cpp
+        interfaz/interfaz.h
+        vision/detector_barra.cpp
+        vision/detector_barra.h
+        vision/detector_yolo.cpp
+        vision/detector_yolo.h
+        vision/preprocesado.cpp
+        vision/preprocesado.h
+        vision/seguimiento_tiros.cpp
+        vision/seguimiento_tiros.h
+        vision/tipos.h
+        vision/validador_pinos.cpp
+        vision/validador_pinos.h)
 
-target_include_directories(Boliche_inteligente PRIVATE "${ORT_ROOT}/include")
+target_include_directories(Boliche_inteligente PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+        "${ORT_ROOT}/include")
 
 target_compile_definitions(Boliche_inteligente PRIVATE
         BOLICHE_MODEL_PATH="${BOLICHE_MODEL}"
@@ -79,7 +95,7 @@ endif()
 
 # DLLs de ONNX Runtime (incluye el proveedor CUDA) junto al ejecutable.
 # Las DLL de cuBLAS/cuDNN (~1.6 GB) no se copian: se localizan en tiempo de
-# ejecucion con SetDllDirectory (ver BOLICHE_CUDA_BIN_PATH en deteccion_IA.cpp).
+# ejecucion con SetDllDirectory (ver BOLICHE_CUDA_BIN_PATH en detector_yolo.cpp).
 set(ORT_DLLS
         "${ORT_ROOT}/lib/onnxruntime.dll"
         "${ORT_ROOT}/lib/onnxruntime_providers_cuda.dll"

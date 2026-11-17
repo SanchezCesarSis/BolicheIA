@@ -219,6 +219,36 @@ std::string formatearTiros(const std::vector<int>& tiros) {
     return r;
 }
 
+int pinosMaximosPermitidos(const Jugador& j) {
+    int fi = j.frameActual();
+    if (fi < 0) return -1;
+    const std::vector<int>& f = j.frames[fi];
+    if (fi == 9) {
+        if (f.size() == 1 && f[0] != 10) return 10 - f[0];
+        if (f.size() == 2 && f[0] == 10 && f[1] != 10) return 10 - f[1];
+        return 10;
+    }
+    if (f.size() == 1 && f[0] != 10) return 10 - f[0];
+    return 10;
+}
+
+bool registrarTiro(BowlingGame& juego, int pinos, std::string& mensaje) {
+    std::string error;
+    if (juego.agregarTiro(pinos, error)) {
+        mensaje = "Tiro registrado: " + std::to_string(pinos) + " pino(s)";
+        return true;
+    }
+    int maximo = pinosMaximosPermitidos(juego.jugadorActual());
+    std::string error2;
+    if (maximo >= 0 && maximo != pinos && juego.agregarTiro(maximo, error2)) {
+        mensaje = "Tiro ajustado a " + std::to_string(maximo) + " pino(s) (detectados " +
+                  std::to_string(pinos) + ": " + error + ")";
+        return true;
+    }
+    mensaje = "Tiro descartado: " + error;
+    return false;
+}
+
 static void putCentrado(cv::Mat& img, const std::string& text, cv::Rect area,
                         double scale, cv::Scalar color, int thickness = 1) {
     int baseline = 0;

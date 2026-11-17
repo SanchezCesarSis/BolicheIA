@@ -43,6 +43,13 @@ private:
 };
 
 std::string formatearTiros(const std::vector<int>& tiros);
+
+// Maximo de pinos que se pueden registrar en el tiro actual segun las reglas
+int pinosMaximosPermitidos(const Jugador& j);
+
+// Registra los pinos caidos en el marcador, ajustandolos a las reglas del juego
+bool registrarTiro(BowlingGame& juego, int pinos, std::string& mensaje);
+
 // Dibuja el marcador. pinosEnPie y ultimoTiro son opcionales: si se pasan,
 // se muestran en el pie de pagina junto a los puntos del ultimo tiro.
 // escala agranda/reduce todo el marcador (1.0 = tamano original).

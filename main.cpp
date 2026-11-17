@@ -1,7 +1,6 @@
-#include "deteccion_IA.h"
-
-
+#include "aplicacion/aplicacion.h"
 
 int main() {
-   procesarVideo();
+    procesarVideo();
+    return 0;
 }
